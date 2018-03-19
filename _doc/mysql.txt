@@ -1,0 +1,42 @@
+------------
+
+
+blad migration
+
+Invalid default value for 'created_at' 
+
+https://stackoverflow.com/questions/9192027/invalid-default-value-for-create-date-timestamp-field
+
+
+You cannot ignore this option. This is server option. If you have access to my.ini (mysql configuration file), then remove NO_ZERO_DATE from sql-mode option and restart server. – Devart Feb 8 '12 at 11:44 
+2
+To check this option - run SHOW VARIABLES LIKE 'sql_mode' – Devart Feb 8 '1
+
+
+In ubuntu desktop 16.04, I did this:
+
+open file: /etc/mysql/mysql.conf.d/mysqld.cnf in an editor of your choice.
+Look for: sql_mode, it will be somewhere under [mysqld].
+and set sql_mode to the following:
+
+NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+Save and then restart mysql service by doing:
+
+sudo service mysql restart
+Hope this helps someone.
+
+
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+
+
+[mysqld]
+sql_mode=IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+
+sudo service mysql restart
+
+
+
+
+
+------------
+
